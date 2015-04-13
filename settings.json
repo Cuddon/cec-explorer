@@ -1,0 +1,11 @@
+{
+    "_comment" : "",
+    "_contributors" : ["Andrew Cuddon"],
+    "_website" : "http://www.cuddon.net/hdmi-cec",
+  
+    "adapterport": "RPI",
+    "#adapterport": "what is the port for the Pulse Eight adapter?",
+    
+    "thisdevicetype" : 1
+}
+

@@ -1,0 +1,21 @@
+
+<div class="container">
+    <div class="page-header">
+        <h2>Real time HDMI CEC Messages <br><small>A tag line goes here</small></h2>
+    </div>
+    
+    <form role="form">
+        <div class="form-group">
+            <label>Filter Messages:</label>
+            <input type="text" class="form-control" data-ng-model="searchtext" placeholder="Enter filter text here">
+        </div>
+    
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" data-ng-click="clearMessages()">Clear Messages</button>
+        <div class="form-group">
+    </form>
+
+    <!-- Display messages here -->
+    <cec-messages data-messages="messages" data-searchtext="searchtext"></cec-messages>
+</div>
+

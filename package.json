@@ -1,0 +1,13 @@
+{
+  "name": "cec-explorer",
+  "version": "0.0.0",
+  "description": "HDMI-CEC Explore",
+  "main": "server.js",
+  "repository": "",
+  "author": "Andrew Cuddon <andrew.cuddon@gmail.com>",
+  "dependencies": {
+    "express": "~3.2.4",
+    "socket.io": "~0.9.14",
+    "byline"    : "~3.1.2"
+  }
+}

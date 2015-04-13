@@ -1,0 +1,518 @@
+{
+    "_protocol" : "HDMI CEC v1.3a",
+    "_source"   : "High-Defintion Multimedia Interface Specification, Supplement 1 Consumer Electronics Control (CEC)",
+    "_version" : "0.0",
+
+    "_comment" : "The following items are status and operation code values",
+
+    "logicaladdressorigin" : {
+        "0" : "TV",
+        "1" : "Recording 1",
+        "2" : "Recording 2",
+        "3" : "Tuner 1",
+        "4" : "Playback 1",
+        "5" : "Audio System",
+        "6" : "Tuner 2",
+        "7" : "Tuner 3",
+        "8" : "Playback 2",
+        "9" : "Playback 3",
+        "a" : "Tuner 4",
+        "b" : "Playback 3a",
+        "c" : "Reserved 1",
+        "d" : "Reserved 2",
+        "e" : "Free Use",
+        "f" : "Unregistered"
+    },
+
+    "logicaladdressdestination" : {
+        "0" : "TV",
+        "1" : "Recording 1",
+        "2" : "Recording 2",
+        "3" : "Tuner 1",
+        "4" : "Playback 1",
+        "5" : "Audio System",
+        "6" : "Tuner 2",
+        "7" : "Tuner 3",
+        "8" : "Playback 2",
+        "9" : "Playback 3",
+        "a" : "Tuner 4",
+        "b" : "Playback 3a",
+        "c" : "Reserved 1",
+        "d" : "Reserved 2",
+        "e" : "Free Use",
+        "f" : "Broadcast"
+    },
+
+    "powerstatus" : {
+        "_comment" : "Report Power Status (Opcode: 0x8F)",
+        "0x00" : "On",
+        "0x01" : "Standby",
+        "0x02" : "In transition Standby to On",
+        "0x03" : "In transition On to Standby",
+        "0x99" : "Power status unknown"
+
+    },
+
+    "featureabortreason" : {
+        "_comment" : "Feature Abort (Opcode: 0x00)",
+        "0x00" : "Unrecognised Opcode",
+        "0x01" : "Not in correct mode to respond",
+        "0x02" : "Cannot provide source",
+        "0x03" : "Invalid operand",
+        "0x04" : "Refused"
+    },
+
+    "cecversion" : {
+        "_comment" : "HMDI (CEC) Version",
+        "0x00" : "Version 1.1",
+        "0x01" : "Version 1.2",
+        "0x02" : "Version 1.2a",
+        "0x03" : "Version 1.3",
+        "0x04" : "Version 1.3a",
+        "0x05" : "Version 1.4"
+    },
+
+    "abortreason" : {
+        "_comment" : "",
+        "0" : "Unrecognised Opcode",
+        "1" : "Not in correct mode to respond",
+        "2" : "Cannot provide source",
+        "3" : "Invalid operand",
+        "4" : "Refused"
+    },
+
+    "analoguebroadcasttype" : {
+        "_comment" : "",
+        "0x00" : "Cable",
+        "0x01" : "Satellite",
+        "0x02" : "Terrestrial"
+    },
+
+    "audiorate" : {
+        "_comment" : "",
+        "0" : "RATE_CONTROL_OFF",
+        "1" : "STANDARD_RATE_100",
+        "2" : "FAST_RATE_MAX_101",
+        "3" : "SLOW_RATE_MIN_99",
+        "4" : "STANDARD_RATE_100_0",
+        "5" : "FAST_RATE_MAX_100_1",
+        "6" : "SLOW_RATE_MIN_99_9"
+    },
+
+    "audiostatus" : {
+        "_comment" : "",
+        "0x80" : "AUDIO_MUTE_STATUS_MASK",
+        "0x7F" : "AUDIO_VOLUME_STATUS_MASK",
+        "0x00" : "AUDIO_VOLUME_MIN",
+        "0x64" : "AUDIO_VOLUME_MAX",
+        "0x7F" : "AUDIO_VOLUME_STATUS_UNKNOWN"
+    },
+
+    "boolean" : {
+        "_comment" : "",
+        "0" : false,
+        "1" : true
+    },
+
+    "channelidentifier" : {
+        "_comment" : "",
+        "0xFC000000" : "CHANNEL_NUMBER_FORMAT_MASK",
+        "0x04000000" : "1_PART_CHANNEL_NUMBER",
+        "0x08000000" : "2_PART_CHANNEL_NUMBER",
+        "0x3FF0000" : "MAJOR_CHANNEL_NUMBER_MASK",
+        "0xFFFF" : "MINOR_CHANNEL_NUMBER_MASK"
+    },
+
+    "deckcontrolmode" : {
+        "_comment" : "",
+        "1" : "SKIP_FORWARD_WIND",
+        "2" : "SKIP_REVERSE_REWIND",
+        "3" : "STOP",
+        "4" : "EJECT"
+    },
+
+    "deckinfo" : {
+        "_comment" : "",
+        "0x11" : "PLAY",
+        "0x12" : "RECORD",
+        "0x13" : "PLAY_REVERSE",
+        "0x14" : "STILL",
+        "0x15" : "SLOW",
+        "0x16" : "SLOW_REVERSE",
+        "0x17" : "FAST_FORWARD",
+        "0x18" : "FAST_REVERSE",
+        "0x19" : "NO_MEDIA",
+        "0x1A" : "STOP",
+        "0x1B" : "SKIP_FORWARD_WIND",
+        "0x1C" : "SKIP_REVERSE_REWIND",
+        "0x1D" : "INDEX_SEARCH_FORWARD",
+        "0x1E" : "INDEX_SEARCH_REVERSE",
+        "0x1F" : "OTHER_STATUS",
+        "0x20" : "OTHER_STATUS_LG"
+    },
+
+    "devicetype" : {
+        "_comment" : "",
+        "0" : "TV",
+        "1" : "Recording Device",
+        "2" : "Reserved",
+        "3" : "Tunder",
+        "4" : "Playback Device",
+        "5" : "Audio System"
+    },
+
+    "displaycontrol" : {
+        "_comment" : "",
+        "0x00" : "DISPLAY_FOR_DEFAULT_TIME",
+        "0x40" : "DDISPLAY_UNTIL_CLEARED",
+        "0x80" : "CLEAR_PREVIOUS_comment",
+        "0xC0" : "RESERVED_FOR_FUTURE_USE"
+    },
+
+    "externalsourcespecifier" : {
+        "_comment" : "",
+        "4" : "EXTERNAL_PLUG",
+        "5" : "EXTERNAL_PHYSICAL_ADDRESS"
+    },
+
+    "menurequesttype" : {
+        "_comment" : "",
+        "0" : "ACTIVATE",
+        "1" : "DEACTIVATE",
+        "2" : "QUERY"
+    },
+
+    "menustate" : {
+        "_comment" : "",
+        "0" : "ACTIVATED",
+        "1" : "DEACTIVATED"
+    },
+
+    "playmode" : {
+        "_comment" : "",
+        "0x24" : "PLAY_FORWARD",
+        "0x20" : "PLAY_REVERSE",
+        "0x25" : "PLAY_STILL",
+        "0x05" : "FAST_FORWARD_MIN_SPEED",
+        "0x06" : "FAST_FORWARD_MEDIUM_SPEED",
+        "0x07" : "FAST_FORWARD_MAX_SPEED",
+        "0x09" : "FAST_REVERSE_MIN_SPEED",
+        "0x0A" : "FAST_REVERSE_MEDIUM_SPEED",
+        "0x0B" : "FAST_REVERSE_MAX_SPEED",
+        "0x15" : "SLOW_FORWARD_MIN_SPEED",
+        "0x16" : "SLOW_FORWARD_MEDIUM_SPEED",
+        "0x17" : "SLOW_FORWARD_MAX_SPEED",
+        "0x19" : "SLOW_REVERSE_MIN_SPEED",
+        "0x1A" : "SLOW_REVERSE_MEDIUM_SPEED",
+        "0x1B" : "SLOW_REVERSE_MAX_SPEED"
+    },
+
+    "recordsourcetype" : {
+        "_comment" : "",
+        "1" : "Own Source",
+        "2" : "Digital Service",
+        "3" : "Analogue Service",
+        "4" : "External Plus",
+        "5" : "External Physical Address"
+    },
+
+    "recordstatusinfo" : {
+        "_comment" : "",
+        "0x01" : "RECORDING CURRENTLY SELECTED SOURCE",
+        "0x02" : "RECORDING DIGITAL SERVICE",
+        "0x03" : "RECORDING ANALOGUE SERVICE",
+        "0x04" : "RECORDING EXTERNAL INPUT",
+        "0x05" : "NO RECORDING UNABLE TO RECORD DIGITAL SERVICE",
+        "0x06" : "NO RECORDING UNABLE TO RECORD ANALOGUE SERVICE",
+        "0x07" : "NO RECORDING UNABLE TO SELECT REQUIRED SERVICE",
+        "0x09" : "NO RECORDING INVALID EXTERNAL PLUG NUMBER",
+        "0x0A" : "NO RECORDING INVALID EXTERNAL ADDRESS",
+        "0x0B" : "NO RECORDING CA SYSTEM NOT SUPPORTED",
+        "0x0C" : "NO RECORDING NO OR INSUFFICIENT ENTITLEMENTS",
+        "0x0D" : "NO RECORDING NOT ALLOWED TO COPY SOURCE",
+        "0x0E" : "NO RECORDING NO FURTHER COPIES ALLOWED",
+        "0x10" : "NO RECORDING NO MEDIA",
+        "0x11" : "NO RECORDING PLAYING",
+        "0x12" : "NO RECORDING ALREADY RECORDING",
+        "0x13" : "NO RECORDING MEDIA PROTECTED",
+        "0x14" : "NO RECORDING NO SOURCE SIGNAL",
+        "0x15" : "NO RECORDING MEDIA PROBLEM",
+        "0x16" : "NO RECORDING NOT ENOUGH SPACE AVAILABLE",
+        "0x17" : "NO RECORDING PARENTAL LOCK ON",
+        "0x1A" : "RECORDING TERMINATED NORMALLY",
+        "0x1B" : "RECORDING HAS ALREADY TERMINATED",
+        "0x1F" : "NO RECORDING OTHER REASON"
+    },
+
+    "recordingsequence" : {
+        "_comment" : "",
+        "0x01" : "SUNDAY",
+        "0x02" : "MONDAY",
+        "0x04" : "TUESDAY",
+        "0x08" : "WEDNESDAY",
+        "0x10" : "THURSDAY",
+        "0x20" : "FRIDAY",
+        "0x40" : "SATURDAY",
+        "0x00" : "ONCE_ONLY"
+    },
+
+    "statusrequest" : {
+        "_comment" : "",
+        "1" : "ON",
+        "2" : "OFF",
+        "3" : "ONCE"
+    },
+
+    "systemaudiostatus" : {
+        "_comment" : "",
+        "0" : "OFF",
+        "1" : "ON"
+    },
+
+    "timerclearedstatusdata" : {
+        "_comment" : "",
+        "0x00" : "TIMER_NOT_CLEARED_RECORDING",
+        "0x01" : "TIMER_NOT_CLEARED_NO_MATCHING",
+        "0x02" : "TIMER_NOT_CLEARED_NO_INF0_AVAILABLE",
+        "0x80" : "TTIMER_CLEARED"
+    },
+
+    "timeroverlapwarning" : {
+        "_comment" : "",
+        "0" : "NO_OVERLAP",
+        "1" : "TIMER_BLOCKS_OVERLAP"
+    },
+
+    "mediainfo" : {
+        "_comment" : "",
+        "0x00" : "MEDIA_PRESENT_AND_NOT_PROTECTED",
+        "0x01" : "MEDIA_PRESENT_BUT_PROTECTED",
+        "0x02" : "MEDIA_NOT_PRESENT",
+        "0x03" : "FUTURE_USE"
+    },
+
+    "cecprogrammedindicator" :{
+        "_comment" : "",
+        "0" : "NOT_PROGRAMMED",
+        "1" : "PROGRAMMED"
+    },
+
+    "cecprogrammedinfo" :{
+        "_comment" : "",
+        "0x0"  : "FUTURE_USE",
+        "0x08" : "ENOUGH_SPACE_AVAILABLE_FOR_RECORDING",
+        "0x09" : "NOT_ENOUGH_SPACE_AVAILABLE_FOR_RECORDING",
+        "0x0B" : "MAY_NOT_BE_ENOUGH_SPACE_AVAILABLE",
+        "0x0A" : "NO_AVAILABLE"
+    },
+
+    "notprogrammederrorinfo" : {
+        "_comment" : "",
+        "0x0"  : "FUTURE_USE",
+        "0x01" : "NO_FREE_TIMER_AVAILABLE",
+        "0x02" : "DATE_OUT_OF_RANGE",
+        "0x03" : "ERROR",
+        "0x04" : "INVALID_EXTERNAL_PLUG_NUMBER",
+        "0x05" : "INVALID_EXTERNAL_PHYSICAL_ADDRESS",
+        "0x06" : "CA_SYSTEM_NOT_SUPPORTED",
+        "0x07" : "NO_OR_INSUFFICIENT_CA_ENTITLEMENTS",
+        "0x08" : "DOES_NOT_SUPPORT_RESOLUTION",
+        "0x09" : "PARENTAL_LOCK_ON",
+        "0x0A" : "CLOCK_FAILURE",
+        "0x0B" : "RESERVED_FOR_FUTURE_USE_START",
+        "0x0D" : "RESERVED_FOR_FUTURE_USE_END",
+        "0x0E" : "DUPLICATE_ALREADY_PROGRAMMED"
+    },
+
+    "recordingflag" : {
+        "_comment" : "",
+        "0" : "NOT_BEING_USED_FOR_RECORDING",
+        "1" : "RBEING_USED_FOR_RECORDING"
+    },
+
+
+    "tunerdisplayinfo" : {
+        "_comment" : "",
+        "0" : "DISPLAYING_DIGITAL_TUNER",
+        "1" : "NOT_DISPLAYING_TUNER",
+        "2" : "DISPLAYING_ANALOGUE_TUNER"
+    },
+
+    "broadcastsystem" : {
+        "_comment" : "",
+        "00"  : "PAL B G",
+        "01"  : "SECAM L1",
+        "02"  : "PAL M",
+        "03"  : "NTSC M",
+        "04"  : "PAL I",
+        "05"  : "SECAM DK",
+        "06"  : "SECAM B G",
+        "07"  : "SECAM L2",
+        "08"  : "PAL DK",
+        "30" : "Other system"
+    },
+
+    "digitalbroadcastsystem" : {
+        "_comment" : "",
+        "0x00"  : "ARIB generic",
+        "0x01"  : "ATSC generic",
+        "0x02"  : "DVB generic",
+        "0x08"  : "ARIB-BS",
+        "0x09"  : "ARIB-CS",
+        "0x0A"  : "ARIB-T",
+        "0x10"  : "ATSC Cable",
+        "0x11"  : "ATSC Satellite",
+        "0x12"  : "ATSC Terrestrial",
+        "0x18"  : "DVB-C",
+        "0x19"  : "DVB-S",
+        "0x1A"  : "DVB-S2",
+        "0x1B"  : "DVB-T"
+    },
+
+    "serviceidentificationmethod" : {
+        "0" :   "Service identifed by Digital IDs",
+        "1" :   "Service identifed by Channel"
+    },
+
+    "usercontrolcode" : {
+        "_comment" : "IR RC codes",
+        "0x00" : "SELECT",
+        "0x01" : "UP",
+        "0x02" : "DOWN",
+        "0x03" : "LEFT",
+        "0x04" : "RIGHT",
+        "0x05" : "RIGHT_UP",
+        "0x06" : "RIGHT_DOWN",
+        "0x07" : "LEFT_UP",
+        "0x08" : "LEFT_DOWN",
+        "0x09" : "ROOT_MENU",
+        "0x0A" : "SETUP_MENU",
+        "0x0B" : "CONTENTS_MENU",
+        "0x0C" : "FAVORITE_MENU",
+        "0x0D" : "EXIT",
+        "0x20" : "NUMBER 0",
+        "0x21" : "NUMBER 1",
+        "0x22" : "NUMBER 2",
+        "0x23" : "NUMBER 3",
+        "0x24" : "NUMBER 4",
+        "0x25" : "NUMBER 5",
+        "0x26" : "NUMBER 6",
+        "0x27" : "NUMBER 7",
+        "0x28" : "NUMBER 8",
+        "0x29" : "NUMBER 9",
+        "0x2A" : "DOT",
+        "0x2B" : "ENTER",
+        "0x2C" : "CLEAR",
+        "0x2F" : "NEXT_FAVORITE",
+        "0x30" : "CHANNEL_UP",
+        "0x31" : "CHANNEL_DOWN",
+        "0x32" : "PREVIOUS_CHANNEL",
+        "0x33" : "SOUND_SELECT",
+        "0x34" : "INPUT_SELECT",
+        "0x35" : "DISPLAY_INFORMATION",
+        "0x36" : "HELP",
+        "0x37" : "PAGE_UP",
+        "0x38" : "PAGE_DOWN",
+        "0x40" : "POWER",
+        "0x41" : "VOLUME_UP",
+        "0x42" : "VOLUME_DOWN",
+        "0x43" : "MUTE",
+        "0x44" : "PLAY",
+        "0x45" : "STOP",
+        "0x46" : "PAUSE",
+        "0x47" : "RECORD",
+        "0x48" : "REWIND",
+        "0x49" : "FAST_FORWARD",
+        "0x4A" : "EJECT",
+        "0x4B" : "FORWARD",
+        "0x4C" : "BACKWARD",
+        "0x4D" : "STOP_RECORD",
+        "0x4E" : "PAUSE_RECORD",
+        "0x50" : "ANGLE",
+        "0x51" : "SUB_PICTURE",
+        "0x52" : "VIDEO_ON_DEMAND",
+        "0x53" : "ELECTRONIC_PROGRAM_GUIDE",
+        "0x54" : "TIMER_PROGRAMMING",
+        "0x55" : "INITIAL_CONFIGURATION",
+        "0x60" : "PLAY_FUNCTION",
+        "0x61" : "PAUSE_PLAY_FUNCTION",
+        "0x62" : "RECORD_FUNCTION",
+        "0x63" : "PAUSE_RECORD_FUNCTION",
+        "0x64" : "STOP_FUNCTION",
+        "0x65" : "MUTE_FUNCTION",
+        "0x66" : "RESTORE_VOLUME_FUNCTION",
+        "0x67" : "TUNE_FUNCTION",
+        "0x68" : "SELECT_MEDIA_FUNCTION",
+        "0x69" : "SELECT_AV_INPUT_FUNCTION",
+        "0x6A" : "SELECT_AUDIO_INPUT_FUNCTION",
+        "0x6B" : "POWER_TOGGLE_FUNCTION",
+        "0x6C" : "POWER_OFF_FUNCTION",
+        "0x6D" : "POWER_ON_FUNCTION",
+        "0x71" : "F1_BLUE",
+        "0X72" : "F2_RED",
+        "0x73" : "F3_GREEN",
+        "0x74" : "F4_YELLOW",
+        "0x75" : "F5",
+        "0x76" : "DATA",
+        "0x91" : "AN_RETURN",
+        "0x96" : "AN_CHANNELS_LIST",
+        "0x96" : "MAX",
+        "0xFF" : "UNKNOWN"
+    },
+
+    "loglevel" : {
+        "_comment" : "Log Level for libcec",
+        "1"  : "ERROR",
+        "2"  : "WARNING",
+        "4"  : "NOTICE",
+        "8"  : "TRAFFIC",
+        "16" : "DEBUG",
+        "31" : "ALL"
+    },
+
+    "busdevicestatus" : {
+        "_comment" : "**Missing lookup codes**",
+        "0" : "UNKNOWN,",
+        "0" : "PRESENT,",
+        "0" : "DOT_PRESENT,",
+        "0" : "HANDLED_BY_LIBCEC"
+    },
+
+    "vendorid" : {
+        "_comment" : "Vendor identifier",
+        "0x000039" : "TOSHIBA",
+        "0x0000F0" : "Samsung",
+        "0x0005CD" : "DENON",
+        "0x000678" : "Marantz",
+        "0x000982" : "LOEWE",
+        "0x0009B0" : "ONKYO",
+        "0x000CB8" : "MEDION",
+        "0x000CE7" : "TOSHIBA2",
+        "0x001582" : "PULSE_EIGHT",
+        "0x0020C7" : "AKAI",
+        "0x002467" : "AOC",
+        "0x008045" : "PANASONIC",
+        "0x00903E" : "PHILIPS",
+        "0x009053" : "DAEWOO",
+        "0x00A0DE" : "YAMAHA",
+        "0x00D0D5" : "GRUNDIG",
+        "0x00E036" : "PIONEER",
+        "0x00E091" : "LG",
+        "0x08001F" : "SHARP",
+        "0x080046" : "Sony",
+        "0x18C086" : "BROADCOM",
+        "0x6B746D" : "VIZIO",
+        "0x8065E9" : "Benq",
+        "0x9C645E" : "HARMAN_KARDON",
+        "0"        : "Unknown"
+    },
+
+    "adaptertype" : {
+        "_comment" : "CEC addapter type. Pulse Eight, Raspberry Pi, etc",
+        "0"     : "Unknown",
+        "0x1"   : "Pulse Eight external adapter",
+        "0x2"   : "Pulse Eight daughter board",
+        "0x100" : "Raspberry Pi",
+        "0x200" : "TDA995x Chip"
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "_comment" : "HDMI CEC controller unit tests, v0.01, 2 March 2014, Andrew Cuddon, www.cuddon.net",
+
+    "test 1" : {
+        "traffic"      : "TRAFFIC: [             159] << 1f:84:10:00:01",
+        "_comment"  :    "Device 1 to all devices (broadcast) reporting its physical address",
+        "expectedresult" : {
+            "origin" : "1",
+            "originname" : "Recording 1",
+            "destination" : "f",
+            "destinationname" : "broadcast",
+            "opcode" : "84",
+            "message" : "<Report Physical Address>",
+            "physicaladdress" : "1.0.0.0",
+            "devicetype" : "1",
+            "devicetypename" : "Recording Device"
+        }
+    },
+
+    "test 2" : {
+        "traffic"      : "TRAFFIC: [          318004] << 1f:85",
+        "comment"   : "Logical device 1 (Recording 1) Requesting active source",
+        "expectedresult" : {
+            "origin" : "1",
+            "originname" : "Recording 1",
+            "destination" : "0",
+            "destinationname" : "TV",
+            "opcode" : "85",
+            "message" : "<Request Active Source>"
+        }
+    },
+
+    "test 3" : {
+        "traffic"      : "TRAFFIC: [          318004] << 1f:00:85:01",
+        "comment"   : "Logical device 1 reporing a feature abort for  request. Request: active source, reason: Not in correct mode to respond",
+        "expectedresult" : {
+            "origin" : "1",
+            "originname" : "Recording 1",
+            "destination" : "f",
+            "destinationname" : "broadcast",
+            "opcode" : "00",
+            "message" : "<Feature Abort>",
+            "originiatingmesageopcode" : "85",
+            "originatingmessage" : "<Request Active Source>",
+            "reasoncode" : "1",
+            "reason" : "Not in correct mode to respond"
+        }
+    },
+
+    "test 4" : {
+        "traffic"      : "TRAFFIC: [             126] << 10",
+        "comment"   : "Poll message from logical device 1 (Recording 1) to logical device 0 (TV)",
+        "expectedresult" : {
+            "origin" : "1",
+            "originname" : "Recording 1",
+            "destination" : "0",
+            "destinationname" : "tv"
+        }
+    },
+
+    "test 5" : {
+        "traffic"      : "TRAFFIC: [          427329] << 01:90:01",
+        "comment"   : ""
+    },
+
+    "test 6" : {
+        "traffic"      : "TRAFFIC: [          427329] >> 1b:91",
+        "comment"   : "Get menu language"
+    },
+
+    "test 7" : {
+        "traffic"      : "TRAFFIC: [          427329] >> 1b:9f",
+        "comment"   : ""
+    },
+
+    "test 8" : {
+        "traffic"      : "TRAFFIC: [          427329] >> 1b:9e:04",
+        "comment"   : "Report CEC Version"
+    },
+
+    "test 9" : {
+        "traffic"      : "TRAFFIC: [          427329] >> 10:46",
+        "comment"   : "Recorder 1 to TV: Give OSD Name"
+    },
+
+    "test 10" : {
+        "traffic"      : "TRAFFIC: [          427329] >> 10:47:4B:69:64:73:20:50:53:33",
+        "comment"   : "Set OSD Name to: Kids PS3"
+    },
+    "test 11" : {
+        "traffic"      : "TRAFFIC: [          427329] >> 1Z:fg:4B:69:64",
+        "comment"   : "Errors: Invalid destination device, invalid opcode"
+    }
+}

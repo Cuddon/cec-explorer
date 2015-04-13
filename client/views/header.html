@@ -1,0 +1,52 @@
+<!-- App Navbar -->
+
+<header class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            
+            <!-- Navbar TOGGLE BUTTON for Small mobile devices -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-3" ng-click="isCollapsed = !isCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand visible-xs" href="#">HDMI CEC Explorer</a>
+            </div>
+
+            <!-- Navbar for Small mobile devices -->
+            <nav class="visible-xs" collapse="!isCollapsed">
+                <ul class="nav navbar-nav">
+                    <li><a href="#/messages" ng-click="isCollapsed = !isCollapsed">Display real time messages</a></li>
+                    <li><a href="#/recordedmessages" ng-click="isCollapsed = !isCollapsed">Display recorded messages</a></li>
+                    <li><a href="#/record" ng-click="isCollapsed = !isCollapsed">Record messages</a></li>
+                    <li><a href="#/command" ng-click="isCollapsed = !isCollapsed">Send a Command</a></li>
+                    <li><a href="#/record" ng-click="isCollapsed = !isCollapsed">Analysis</a></li>
+                    <li><a href="#/settings" ng-click="isCollapsed = !isCollapsed">Settings</a></li>
+                </ul>
+            </nav>
+          
+
+            <!-- Navbar for larger  devices-->
+            <nav class="hidden-xs">
+                <a href="/" role="button" class="navbar-brand">CEC Explorer</a>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle">CEC Messages<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#/messages">Display real time messages</a></li>
+                            <li><a href="#/recordedmessages">Display recorded messages</a></li>
+                            <li><a href="#/record">Record messages</a></li>
+                        </ul>
+                    </li>
+                    <li><a data-ng-href="#/command" data-toggle="tab">Send a Command</a></li>
+                    <li><a data-ng-href="#/record" data-toggle="tab">Analysis</a></li>
+                    <li><a data-ng-href="#/settings" data-toggle="tab">Settings</a></li>
+                    <li><a href="www.cuddon.net/hdmi"><em>www.cuddon.net</em></a></li>
+                </ul>
+            </nav>
+                
+        </div>
+    </div>
+</header>

@@ -1,0 +1,1354 @@
+{
+    "_protocol" : "HDMI CEC v1.3a",
+    "_source"   : "High-Defintion Multimedia Interface Specification, Supplement 1 Consumer Electronics Control (CEC)",
+    "_version" : "0.0",
+
+    "_messagestructure" : "**** The following items define the structure of each message (as defined by a message's opcode). ****",
+
+    "opcodes" : {
+        "0x00" : {
+            "name"        : "<Feature Abort>",
+            "opcode"      : "0x00",
+            "alias"       : null,
+            "description" : "Unsupported request or unable to process the request",
+            "messagetype" : "direct|broadcast",
+            "datastructure" : {
+                "regex"             : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2})$",
+                "_comment"          : "2 data items, each is one byte long",
+                "_example"          : "84:02",
+                "parameters" : [
+                    {
+                        "name"      : "requestmessage",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "opcode",
+                        "_example"  : "84 -> 0x84 -> <Report Physical Address>"
+                    },
+                    {
+                        "name"      : "featureabortreason",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "featureabortreason",
+                        "_example"  : "03 -> 0x03 -> Invalid operand"
+                }]
+            }
+         },
+        "0x01" : null,
+        "0x02" : null,
+        "0x03" : null,
+        "0x04" : {
+            "name"        : "<Image View On>",
+            "opcode"      : "0x04",
+            "alias"       : "Display my stream on the TV",
+            "description" : "Sent by a source device whenever it enters the active state",
+            "feature"     : ["One Touch Display"],
+            "messagetype" : "direct",
+            "_comment"    : "Sent to the TV only.",
+            "datastructure" : {
+                "regex"             : null,
+                "_comment"          : "No parameters",
+                "_example"          : null,
+                "parameters"        : null
+            }
+        },
+        "0x05" : "TUNER_STEP_INCREMENT",
+        "0x06" : "TUNER_STEP_DECREMENT",
+        "0x07" : "TUNER_DEVICE_STATUS",
+        "0x08" : "GIVE_TUNER_DEVICE_STATUS",
+        "0x09" : {
+            "name"        : "<Record On>",
+            "opcode"      : "0x09",
+            "alias"       : "Start rercording",
+            "description" : "Attempt to record the specified source.",
+            "feature"     : ["One Touch Record"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"             : "^0(\\d)(?::)?(.+)?",
+                "_comment"          : "1 byte (decimal) followed by 7 optional bytes depending on the record source, extracting the record source details is not yet implemented",
+                "_example"          : "01:xxxxxxxxxx",
+                "parameters" : [
+                    {
+                        "name"      : "recordsourcetype",
+                        "optional"  : false,
+                        "length"    : "1 nibble (second half of the byte)",
+                        "converter" : null,
+                        "lookup"    : "recordsourcetype",
+                        "_example"  : "02 -> Digital Service"
+                    },
+                    {
+                        "name"      : "featureabortreason",
+                        "optional"  : true,
+                        "length"    : "7 optional bytes depending on the record source, extracting the record source details is not yet implemented.",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "TBD"
+                }]
+            }
+        },
+        "0x0a" : {
+            "name"        : "<Record Status>",
+            "opcode"      : "0x0a",
+            "alias"       : "Here is my Recording status",
+            "description" : "Used by recording device to inform the initiator of the message <Record On> about its status.",
+            "feature"     : ["One Touch Record"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"             : "^([0-9a-fA-F]{2})$",
+                "_comment"          : "1 byte (hex)",
+                "_example"          : "03",
+                "parameters" : [
+                    {
+                        "name"      : "recordstatusinfo",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordstatusinfo",
+                        "_example"  : "0D -> 0x0D -> No recording, not allowed to copy source"
+                }]
+            }
+        },
+        "0x0b" : {
+            "name"       : "<Record Off>",
+            "opcode"     : "0x0b",
+            "alias"       : "Stop rercording",
+            "description" : "Requests a device to stop recording.",
+            "feature"     : ["One Touch Record"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"         : null,
+                "_comment"      : "No parameters",
+                "_example"      : null,
+                "parameters"    : null
+            }
+        },
+        "0x0c" : null,
+        "0x0d" : {
+            "name"        : "<Text View On>",
+            "opcode"      : "0x0d",
+            "alias"       : "Display my stream on the TV and remove any txt or menus you may be displaying",
+            "description" : "Same as <Image View On but also remove any text, menus, and PIP windows form the TV display>",
+            "feature"     : ["One Touch Display"],
+            "messagetype" : "direct",
+            "_comment"    : "Sent to the TV only.",
+            "datastructure" : {
+                "regex"         : null,
+                "_comment"      : "No parameters",
+                "_example"      : null,
+                "parameters"    : null
+            }
+        },
+        "0x0e" : null,
+        "0x0f" : {
+            "name"        : "<Record TV Screen>",
+            "opcode"      : "0x0f",
+            "alias"       : "Start rercording the current source",
+            "description" : "Request by the recording device to record the presently displayed source.",
+            "feature"     : ["One Touch Record"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"         : null,
+                "_comment"      : "No parameters",
+                "_example"      : null,
+                "lookups"       : null,
+                "parameters"    : null
+            }
+        },
+
+        "0x10" : null,
+        "0x11" : null,
+        "0x12" : null,
+        "0x13" : null,
+        "0x14" : null,
+        "0x15" : null,
+        "0x16" : null,
+        "0x17" : null,
+        "0x18" : null,
+        "0x19" : null,
+        "0x1a" : {
+            "name"        : "<Give Deck Status>",
+            "opcode"      : "0x1A",
+            "alias"       : null,
+            "description" : "Used to requestthe status of a device regardless or not if it is the current source",
+            "feature"     : ["Deck Control"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^0(\\d)$",
+                "_example"  : "3",
+                "_comment"  : "1 nibble. First nibble of the byte is ignored",
+                "parameters" : [
+                    {
+                        "name"      : "statusrequest",
+                        "optional"  : false,
+                        "length"    : "1 nibble. First nibble of the byte is ignored",
+                        "converter" : null,
+                        "lookup"    : "statusrequest",
+                        "_example"  : "3 -> Once"
+                }]
+            }
+        },
+        "0x1b" : {
+            "name"        : "<Deck Status>",
+            "opcode"      : "0x1b",
+            "alias"       : null,
+            "description" : "Used to provide a Deck Status to the initiator of a <Give Deck Staus> message",
+            "feature"     : ["Deck Control"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2})$",
+                "_example"  : "19",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "deckinfo",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "deckinfo",
+                        "_example"  : "19 -> 0x19 -> No Media"
+                }]
+            }
+        },
+        "0x1c" : null,
+        "0x1d" : null,
+        "0x1e" : null,
+        "0x1d" : null,
+
+        "0x30" : null,
+        "0x31" : null,
+        "0x32" : {
+            "name"        : "<Set Menu Language>",
+            "opcode"      : "0x32",
+            "alias"       : "Here is my menu language:",
+            "description" : "Used by a TV or another device to indicate the menu language.",
+            "feature"     : ["System Information"],
+            "messagetype" : "broadcast",
+            "_comment"    : "Usually sent by the TV.",
+            "datastructure" : {
+                "regex"             : "",
+                "_comment"          : "3 bytes (ASCII characters)",
+                "_example"          : "45:4E:47",
+                "parameters" : [
+                    {
+                        "name"      : "menulanguage",
+                        "optional"  : false,
+                        "length"    : "3 bytes",
+                        "converter" : "hex2char",
+                        "lookup"    : null,
+                        "_example"  : "45:4E:47  -> eng (English)"
+                }]
+            }
+        },
+        "0x33" : {
+            "name"        : "<Clear Analogue Timer>",
+            "opcode"      : "0x33",
+            "alias"       : "Clear your analogue timer",
+            "description" : "Used to clear an analogue timer block of a device.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):(\\d{2}:\\d{2}):(\\d{2}:\\d{2}):([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):([0-9a-fA-F]{2}:[0-9a-fA-F]{2}):([0-9a-fA-F]{2})$",
+                "_example"  : "1B:0B:20:30:01:59:02:01:04:D2:04",
+                "_comment"  : "(1B):(0B):(20:30):(01:59):(02):(01):(04:D2):(04)",
+                "parameters" : [
+                    {
+                        "name"      : "dayofmonth",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "1B -> 27"
+                    },
+                    {
+                        "name"      : "monthofyear",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "0B -> 11"
+                    },
+                    {
+                        "name"      : "starttime",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "01:59"
+                    },
+                    {
+                        "name"      : "duration",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "01:59"
+                    },
+                    {
+                        "name"      : "recordingsequence",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordingsequence",
+                        "_example"  : "02 -> 0x02"
+                    },
+                    {
+                        "name"      : "analoguebroadcasttype",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "analoguebroadcasttype",
+                        "_example"  : "01 -> 0x01"
+                    },
+                    {
+                        "name"      : "analoguefrequency",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "04:D2 -> 1234"
+                    },
+                    {
+                        "name"      : "broadcastsystem",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : null,
+                        "lookup"    : "broadcastsystem",
+                        "_example"  : "04 -> PAL I"
+                }]
+            }
+        },
+        "0x34" : {
+            "name"        : "<Set Analogue Timer>",
+            "opcode"      : "0x34",
+            "alias"       : "Set your analogue timer",
+            "description" : "Used to set a single timer block on an analogue recording device.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):(\\d{2}:\\d{2}):(\\d{2}:\\d{2}):([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):([0-9a-fA-F]{2}:[0-9a-fA-F]{2}):([0-9a-fA-F]{2})$",
+                "_example"  : "1B:0B:20:30:01:59:02:01:04:D2:04",
+                "_comment"  : "(1B):(0B):(20:30):(01:59):(02):(01):(04:D2):(04)",
+                "parameters" : [
+                    {
+                        "name"      : "dayofmonth",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "1B -> 27"
+                    },
+                    {
+                        "name"      : "monthofyear",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "0B -> 11"
+                    },
+                    {
+                        "name"      : "starttime",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "01:59"
+                    },
+                    {
+                        "name"      : "duration",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "01:59"
+                    },
+                    {
+                        "name"      : "recordingsequence",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordingsequence",
+                        "_example"  : "02 -> 0x02"
+                    },
+                    {
+                        "name"      : "analoguebroadcasttype",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "analoguebroadcasttype",
+                        "_example"  : "01 -> 0x01"
+                    },
+                    {
+                        "name"      : "analoguefrequency",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "04:D2 -> 1234"
+                    },
+                    {
+                        "name"      : "broadcastsystem",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : null,
+                        "lookup"    : "broadcastsystem",
+                        "_example"  : "04 -> PAL I"
+                }]
+            }
+        },
+        "0x35" : {
+            "name"        : "<Timer Status>",
+            "opcode"      : "0x43",
+            "alias"       : null,
+            "description" : "Used to send timer status to the initiator of a <Set Timer> message.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2})$",
+                "_example"  : "80",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "timerstatusdata",
+                        "optional"  : false,
+                        "length"    : "1 or 3 bytes",
+                        "converter" : "hex",
+                        "lookup"    : null,
+                        "_example"  : "Not yet implemented"
+                }]
+            }
+        },
+        "0x36" : {
+            "name"        : "<Standby>",
+            "alias"       : "Set all devices of 1 device to standby",
+            "description" : "Switches one or all devices into standby mode. Can be used as a broadcast message or be addressed to a specific device.",
+            "feature"     : ["Standby"],
+            "messagetype" : "direct|broadcast",
+            "_comment"    : "Sent to the TV only.",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No Paremeters",
+                "parameters"    : null
+            }
+        },
+        "0x37" : null,
+        "0x38" : null,
+        "0x39" : null,
+        "0x3a" : null,
+        "0x3b" : null,
+        "0x3c" : null,
+        "0x3d" : null,
+        "0x3e" : null,
+        "0x3f" : null,
+
+        "0x40" : null,
+        "0x41" : {
+            "name"        : "<Play>",
+            "opcode"      : "0x41",
+            "alias"       : "Play control",
+            "description" : "Used to control the playback behaviour of a source device.",
+            "feature"     : ["Deck Control"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2})$",
+                "_example"  : "1B",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "playmode",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "playmode",
+                        "_example"  : "1B -> 0x1B -> Slow Reverse Max Speed"
+                    }]
+            }
+        },
+        "0x42" : {
+            "name"        : "<Deck Control>",
+            "opcode"      : "0x42",
+            "alias"       : null,
+            "description" : "Used to control a device's media functions",
+            "feature"     : ["Deck Control"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^0(\\d)$",
+                "_example"  : "4",
+                "_comment"  : "1 nibble. First nibble of the byte is ignored",
+                "parameters" : [
+                    {
+                        "name"      : "deckcontrolmode",
+                        "optional"  : false,
+                        "length"    : "1 nibble. First nibble of the byte is ignored",
+                        "converter" : null,
+                        "lookup"    : "deckcontrolmode",
+                        "_example"  : "4 -> Eject"
+                    }]
+            }
+        },
+        "0x43" : {
+            "name"        : "<Timer Cleared Status>",
+            "opcode"      : "0x43",
+            "alias"       : null,
+            "description" : "Used to give the status of a <Clear Analogue Timer>, <Clear Digital Timer>, or <Clear External Timer> message.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2})$",
+                "_example"  : "80",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "timerclearedstatusdata",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "timerclearedstatusdata",
+                        "_example"  : "80 -> 0x80 -> Time cleared"
+                }]
+            }
+        },
+        "0x44" : "USER_CONTROL_PRESSED",
+        "0x45" : "USER_CONTROL_RELEASE",
+        "0x46" : {
+            "name" : "GIVE_OSD_NAME",
+            "opcode"    : "0x46",
+            "alias"     : "My onscreen screen display name is: ",
+            "description" : "Reports a device's screen display name",
+            "feature"   : ["On Screen Display"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No Parameters",
+                "parameters" : null
+            }
+         },
+        "0x47" : {
+            "name"        : "<Set OSD Name>",
+            "opcode"      : "0x47",
+            "alias"       : null,
+            "description" : "Used to give tell a device to use this name for me",
+            "feature"     : ["On Screen Display"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F:]+)$",
+                "_example"  : "4B:69:64:73:20:50:53:33",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "osdname",
+                        "optional"  : false,
+                        "length"    : "Maximum  of 14 bytes",
+                        "converter" : "hex2char",
+                        "lookup"    : null,
+                        "_example"  : "4B:69:64:73:20:50:53:33 -> 'Kids PS3'"
+                }]
+            }
+        },
+        "0x48" : null,
+        "0x49" : null,
+        "0x4a" : null,
+        "0x4b" : null,
+        "0x4c" : null,
+        "0x4d" : null,
+        "0x4e" : null,
+        "0x4f" : null,
+
+        "0x50" : null,
+        "0x51" : null,
+        "0x52" : null,
+        "0x53" : null,
+        "0x54" : null,
+        "0x55" : null,
+        "0x56" : null,
+        "0x57" : null,
+        "0x58" : null,
+        "0x59" : null,
+        "0x5a" : null,
+        "0x5b" : null,
+        "0x5c" : null,
+        "0x5d" : null,
+        "0x5e" : null,
+        "0x5f" : null,
+
+        "0x60" : null,
+        "0x61" : null,
+        "0x62" : null,
+        "0x63" : null,
+        "0x64" : "SET_OSD_STRING",
+        "0x65" : null,
+        "0x66" : null,
+        "0x67" : {
+            "name"        : "<Set Timer Progam Title>",
+            "opcode"      : "0x67",
+            "alias"       : "Set yout time block title",
+            "description" : "Used to set the name of a program associated with a timer block. Sent directly after setting a <Set Analogue Timer> or <Set Digital Timer> message.",
+            "feature"     : ["System Information"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F:]+)$",
+                "_example"  : "4D:79:20:54:69:74:6C:65",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "programtitlestring",
+                        "optional"  : false,
+                        "length"    : "1-14 bytes",
+                        "converter" : "hex2char",
+                        "lookup"    : null,
+                        "_example"  : "4D:79:20:54:69:74:6C:65 -> My Title"
+                }]
+            }
+        },
+        "0x68" : null,
+        "0x69" : null,
+        "0x6a" : null,
+        "0x6b" : null,
+        "0x6c" : null,
+        "0x6d" : null,
+        "0x6e" : null,
+        "0x6f" : null,
+
+        "0x70" : "SYSTEM_AUDIO_MODE_REQUEST",
+        "0x71" : "GIVE_AUDIO_STATUS",
+        "0x72" : "SET_SYSTEM_AUDIO_MODE",
+        "0x73" : null,
+        "0x74" : null,
+        "0x75" : null,
+        "0x76" : null,
+        "0x77" : null,
+        "0x78" : null,
+        "0x79" : null,
+        "0x7a" : "REPORT_AUDIO_STATUS",
+        "0x7b" : null,
+        "0x7c" : null,
+        "0x7d" : "GIVE_SYSTEM_AUDIO_MODE_STATUS",
+        "0x7e" : "SYSTEM_AUDIO_MODE_STATUS",
+        "0x7f" : null,
+
+        "0x80" : {
+            "name"        : "<Routing Change>",
+            "opcode"      : "0x80",
+            "alias"       : "The active route has changed (from to)",
+            "description" : "Sent by a CEC Switch when it is manually switched to inform all other devices on the network that the active route below the switch has changed.",
+            "feature"     : ["One Touch Display", "Routing Control"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^(\\d{2}:\\d{2}):(\\d{2}:\\d{2})$",
+                "_example"  : "20:01:10:00",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "originaladdress",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "physicaladdress",
+                        "lookup"    : null,
+                        "_example"  : "20:01 -> 2.0.0.1"
+                    },
+                    {
+                        "name"      : "newaddress",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "physicaladdress",
+                        "lookup"    : null,
+                        "_example"  : "10:00 -> 1.0.0.0"
+                }]
+            }
+        },
+        "0x81" : {
+            "name"        : "<Routing Information>",
+            "alias"       : "Here is the active route.",
+            "description" : "Sent by a CEC Switch to indicate the active route below the switch.",
+            "feature"     : ["Routing Control"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"  : "^(\\d{2}:\\d{2}):0(\\d)$",
+                "_example"  : "10:00:01 (note, the first nibble of the last byte is ignored)",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "physicaladdress",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "physicaladdress",
+                        "lookup"    : null,
+                        "_example"  : "10:00 -> 1.0.0.0"
+                    },
+                    {
+                        "name"      : "devicetype",
+                        "optional"  : false,
+                        "length"    : "1 nibble. The first nibble fo the byte is ignored by the regex",
+                        "converter" : null,
+                        "lookup"    : "devicetype",
+                        "_example"  : "1 -> Recording Device"
+                    }]
+            }
+        },
+        "0x82" : {
+            "name"        : "<Active Source>",
+            "opcode"      : "0x82",
+            "alias"       : "I am the Active Source",
+            "description" : "Used by a new source to indicate that it has started to stream, or in response to a <Request Active Source> broadcast",
+            "feature"     : ["Routing Control"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"  : "^(\\d{2}:\\d{2}):0(\\d)$",
+                "_example"  : "10:00:01 (note, the first nibble of the last byte is ignored)",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "physicaladdress",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "physicaladdress",
+                        "lookup"    : null,
+                        "_example"  : "10:00 -> 1.0.0.0"
+                    },
+                    {
+                        "name"      : "devicetype",
+                        "optional"  : false,
+                        "length"    : "1 nibble. The first nibble fo the byte is ignored by the regex",
+                        "converter" : null,
+                        "lookup"    : "devicetype",
+                        "_example"  : "1 -> Recording Device"
+                    }]
+            }
+        },
+        "0x83" : {
+            "name"        : "<Give Physical Address>",
+            "opcode"      : "0x84",
+            "alias"       : "What is your physical address?",
+            "description" : "A request to a device to return its physical address.",
+            "feature"     : ["System Information"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No parameters",
+                "parameters"    : null
+            }
+        },
+        "0x84" : {
+            "name"        : "<Report Physical Address>",
+            "opcode"      : "0x84",
+            "alias"       : "Hear is my physical address:",
+            "description" : "Used to inform all other devices of the mapping between physical and logical address of the initiator.",
+            "feature"     : ["System Information"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"  : "^(\\d{2}:\\d{2}):0(\\d)$",
+                "_example"  : "10:00:01 (note, the first nibble of the last byte is ignored)",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "physicaladdress",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "physicaladdress",
+                        "lookup"    : null,
+                        "_example"  : "10:00 -> 1.0.0.0"
+                    },
+                    {
+                        "name"      : "devicetype",
+                        "optional"  : false,
+                        "length"    : "1 nibble. The first nibble fo the byte is ignored by the regex",
+                        "converter" : null,
+                        "lookup"    : "devicetype",
+                        "_example"  : "1 -> Recording Device"
+                    }]
+            }
+        },
+        "0x85" : {
+            "name"        : "<Request Active Source>",
+            "opcode"      : "0x85",
+            "alias"       : "Please tell me the Active Source",
+            "description" : "Used by a new device to discover the current active source. The currently active source responds with an <Active Source> message.",
+            "feature"     : ["Routing Control"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No Parameters",
+                "parameters"    : null
+            }
+        },
+        "0x86" : {
+            "name"        : "<Set Stream Path>",
+            "opcode"      : "0x86",
+            "alias"       : "Please set a streaming path from this address.",
+            "description" : "Used by the TV to request a streaming path from the specified physical address.",
+            "feature"     : ["Routing Control"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"  : "^(\\d{2}:\\d{2}):0(\\d)$",
+                "_example"  : "10:00:01 (note, the first nibble of the last byte is ignored)",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "physicaladdress",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : "physicaladdress",
+                        "lookup"    : null,
+                        "_example"  : "10:00 -> 1.0.0.0"
+                    },
+                    {
+                        "name"      : "devicetype",
+                        "optional"  : false,
+                        "length"    : "1 nibble. The first nibble fo the byte is ignored by the regex",
+                        "converter" : null,
+                        "lookup"    : "devicetype",
+                        "_example"  : "1 -> Recording Device"
+                    }]
+            }
+        },
+        "0x87" : {
+            "name"        : "<Device Vendor ID>",
+            "opcode"      : "0x87",
+            "alias"       : "My Vendor ID is: ",
+            "description" : "Reports the vendor ID of this device",
+            "feature"     : ["System Information"],
+            "messagetype" : "broadcast",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F:])+$",
+                "_example"  : "08:00:46",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "vendorid",
+                        "optional"  : false,
+                        "length"    : "3 bytes",
+                        "converter" : "hexbytes",
+                        "lookup"    : "vendorid",
+                        "_example"  : "08:00:46 -> 0x080046 ->Sony"
+                    }]
+            }
+        },
+        "0x88" : null,
+        "0x89" : "VENDOR_COMMAND",
+        "0x8a" : "VENDOR_REMOTE_BUTTON_DOWN",
+        "0x8b" : "VENDOR_REMOTE_BUTTON_UP",
+        "0x8c" : {
+            "name"        : "<Give Device Vendor ID>",
+            "opcode"      : "0x8c",
+            "alias"       : "Request Vendor ID",
+            "description" : "Requests the vendor ID from a device",
+            "feature"     : ["System Information"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No Parameters",
+                "parameters" : null
+            }
+        },
+        "0x8d" : "MENU_REQUEST",
+        "0x8e" : "MENU_STATUS",
+        "0x8f" : {
+            "name" : "GIVE_DEVICE_POWER_STATUS",
+            "alias": "Report Power Status",
+            "_description" : "Used to determine the current power status of a target device",
+            "parameterdecoders" : {"powerstatus" : null},
+            "destinationtype" : "direct|broadcast"
+         },
+
+        "0x90" : {
+            "name"        : "<Report Power Status>",
+            "opcode"      : "0x90",
+            "alias"       : "My power status is: ",
+            "description" : "Used to inform a requesting device of the curret power status.",
+            "feature"     : ["Power Status"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2})$",
+                "_example"  : "01",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "powerstatus",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "powerstatus",
+                        "_example"  : "01 -> 0x01 ->Standby"
+                    }]
+            }
+        },
+
+        "0x91" : {
+            "name"        : "<Get Menu Language>",
+            "opcode"      : "0x91",
+            "alias"       : "What is your menu language TV?",
+            "description" : "Sent by a device capable of character generation (for OSD and Menus) to a TV in order to discover the currently selected Menu language. Also used by a TV during installation to discover the currently set menu language of other devices.",
+            "feature"     : ["System Information"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No Parameters",
+                "parameters" : null
+            }
+        },
+        "0x92" : "SELECT_ANALOGUE_SERVICE",
+        "0x93" : "SELECT_DIGITAL_SERVICE",
+        "0x94" : null,
+        "0x95" : null,
+        "0x96" : null,
+        "0x97" : {
+            "name"        : "<Set Digital Timer>",
+            "opcode"      : "0x97",
+            "alias"       : "Set your digital timer",
+            "description" : "Used to set a single timer block on a digital recording device.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):(\\d{2}:\\d{2}):(\\d{2}:\\d{2}):([0-9a-fA-F]{2})(.+)$",
+                "_example"  : "1B:0C:14:32:02:35:02:00:00:7B:01:C8:03:15",
+                "_comment"  : "(1B):(0C):(14:32):(02:35):(02):(00:00:7B:01:C8:03:15)",
+                "parameters" : [
+                    {
+                        "name"      : "dayofmonth",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "1B -> 27"
+                    },
+                    {
+                        "name"      : "monthofyear",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "0C -> 12"
+                    },
+                    {
+                        "name"      : "starttime",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "14:32"
+                    },
+                    {
+                        "name"      : "duration",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "02:35"
+                    },
+                    {
+                        "name"      : "recordingsequence",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordingsequence",
+                        "_example"  : "02 -> 0x02 -> Monday"
+                    },
+                    {
+                        "name"      : "digitalserviceidentification",
+                        "optional"  : false,
+                        "length"    : "7 bytes - need to split into sub parameters",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "00:00:7B:01:C8:03:15"
+                }]
+            }
+        },
+        "0x98" : null,
+        "0x99" : {
+            "name"        : "<Clear Digital Timer>",
+            "opcode"      : "0x99",
+            "alias"       : "Clear your digital timer",
+            "description" : "Used to clear a digital timer block of a device.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):(\\d{2}:\\d{2}):(\\d{2}:\\d{2}):([0-9a-fA-F]{2})(.+)$",
+                "_example"  : "1B:0C:14:32:02:35:02:00:00:7B:01:C8:03:15",
+                "_comment"  : "(1B):(0C):(14:32):(02:35):(02):(00:00:7B:01:C8:03:15)",
+                "parameters" : [
+                    {
+                        "name"      : "dayofmonth",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "1B -> 27"
+                    },
+                    {
+                        "name"      : "monthofyear",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "0C -> 12"
+                    },
+                    {
+                        "name"      : "starttime",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "14:32"
+                    },
+                    {
+                        "name"      : "duration",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "02:35"
+                    },
+                    {
+                        "name"      : "recordingsequence",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordingsequence",
+                        "_example"  : "02 -> 0x02 -> Monday"
+                    },
+                    {
+                        "name"      : "digitalserviceidentification",
+                        "optional"  : false,
+                        "length"    : "7 bytes - need to split into sub parameters",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "00:00:7B:01:C8:03:15"
+                }]
+            }
+        },
+        "0x9a" : "SET_AUDIO_RATE",
+        "0x9b" : null,
+        "0x9c" : null,
+        "0x9d" : {
+            "name"        : "<Inactive Source>",
+            "opcode"      : "0x9d",
+            "alias"       : "I am no longer the active source",
+            "description" : "Used by the currently active source to inform the TV that it has no video to be presented to the user, or is going into standby as the result of a local user command on the device.",
+            "feature"     : ["Routing Control"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"  : "^(\\d{2}:\\d{2}):0(\\d)$",
+                "_example"  : "10:00:01 (note, the first nibble of the last byte is ignored)",
+                "_comment"  : "",
+                "lookups"           : ["physicaladdress", "devicetype"],
+                "parameternames"    : ["physicaladdress", "devicetype"]
+            }
+        },
+        "0x9e" : {
+            "name"        : "<CEC Version>",
+            "opcode"      : "0x9e",
+            "alias"       : "My CEC version is: ",
+            "description" : "Used to indicate the supported CEC version, in response to a <Get CEC Version>.",
+            "feature"     : ["System Information"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2})$",
+                "_example"  : "02",
+                "_comment"  : "",
+                "parameters" : [
+                    {
+                        "name"      : "cecversion",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "cecversion",
+                        "_example"  : "02 -> 0x02 ->Version 1.2a"
+                }]
+            }
+        },
+        "0x9f" : {
+            "name"        : "<Get CEC Version>",
+            "opcode"      : "0x9f",
+            "alias"       : "What is your CEC version?",
+            "description" : "Used to enquire which version of CEC the target device supports.",
+            "feature"     : ["System Information"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : null,
+                "_example"  : null,
+                "_comment"  : "No Parameters",
+                "parameters" : null
+            }
+        },
+
+        "0xa0" : "VENDOR_COMMAND_WITH_ID",
+        "0xa1" : {
+            "name"        : "<Clear External Timer>",
+            "opcode"      : "0xa1",
+            "alias"       : "Clear your external timer",
+            "description" : "Used to clear an external timer block of a device.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):(\\d{2}:\\d{2}):(\\d{2}:\\d{2}):([0-9a-fA-F]{2}):0([0-9a-fA-F])(.+)$",
+                "_example"  : "1B:0C:14:32:02:35:02:04:10",
+                "_comment"  : "(1B):(0C):(14:32):(02:35):(02):0(4):10)",
+                "parameters" : [
+                    {
+                        "name"      : "dayofmonth",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "1B -> 27"
+                    },
+                    {
+                        "name"      : "monthofyear",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "0C -> 12"
+                    },
+                    {
+                        "name"      : "starttime",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "14:32"
+                    },
+                    {
+                        "name"      : "duration",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "02:35"
+                    },
+                    {
+                        "name"      : "recordingsequence",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordingsequence",
+                        "_example"  : "02 -> 0x02 -> Monday"
+                    },
+                    {
+                        "name"      : "externalsourcespecifier",
+                        "optional"  : false,
+                        "length"    : "1 byte, skip the first nibble",
+                        "converter" : null,
+                        "lookup"    : "externalsourcespecifier",
+                        "_example"  : "4 -> External Plug"
+                    },
+                    {
+                        "name"      : "externalplugorphysicaladdress",
+                        "optional"  : false,
+                        "length"    : "1 byte (external plug) or 2 bytes (external physical address",
+                        "converter" : null,
+                        "lookup"    : "externalplugorphysicaladdress",
+                        "_example"  : "4 -> External Plug"
+                }]
+            }
+        },
+        "0xa2" : {
+            "name"        : "<Set External Timer>",
+            "opcode"      : "0xa2",
+            "alias"       : "Set your external timer to",
+            "description" : "Used to clear an external timer block of a device.",
+            "feature"     : ["Timer Programming"],
+            "messagetype" : "direct",
+            "_comment"    : "",
+            "_comment"    : "",
+            "datastructure" : {
+                "regex"     : "^([0-9a-fA-F]{2}):([0-9a-fA-F]{2}):(\\d{2}:\\d{2}):(\\d{2}:\\d{2}):([0-9a-fA-F]{2}):0([0-9a-fA-F])(.+)$",
+                "_example"  : "1B:0C:14:32:02:35:02:04:10",
+                "_comment"  : "(1B):(0C):(14:32):(02:35):(02):0(4):10)",
+                "parameters" : [
+                    {
+                        "name"      : "dayofmonth",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "1B -> 27"
+                    },
+                    {
+                        "name"      : "monthofyear",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex2dec",
+                        "lookup"    : null,
+                        "_example"  : "0C -> 12"
+                    },
+                    {
+                        "name"      : "starttime",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "14:32"
+                    },
+                    {
+                        "name"      : "duration",
+                        "optional"  : false,
+                        "length"    : "2 bytes",
+                        "converter" : null,
+                        "lookup"    : null,
+                        "_example"  : "02:35"
+                    },
+                    {
+                        "name"      : "recordingsequence",
+                        "optional"  : false,
+                        "length"    : "1 byte",
+                        "converter" : "hex",
+                        "lookup"    : "recordingsequence",
+                        "_example"  : "02 -> 0x02 -> Monday"
+                    },
+                    {
+                        "name"      : "externalsourcespecifier",
+                        "optional"  : false,
+                        "length"    : "1 byte, skip the first nibble",
+                        "converter" : null,
+                        "lookup"    : "externalsourcespecifier",
+                        "_example"  : "4 -> External Plug"
+                    },
+                    {
+                        "name"      : "externalplugorphysicaladdress",
+                        "optional"  : false,
+                        "length"    : "1 byte (external plug) or 2 bytes (external physical address",
+                        "converter" : null,
+                        "lookup"    : "externalplugorphysicaladdress",
+                        "_example"  : "4 -> External Plug"
+                }]
+            }
+        },
+        "0xa3" : null,
+        "0xa4" : null,
+        "0xa5" : null,
+        "0xa6" : null,
+        "0xa7" : null,
+        "0xa8" : null,
+        "0xa9" : null,
+        "0xaa" : null,
+        "0xab" : null,
+        "0xab" : null,
+        "0xad" : null,
+        "0xae" : null,
+        "0xaf" : null,
+
+        "0xb0" : null,
+        "0xb1" : null,
+        "0xb2" : null,
+        "0xb3" : null,
+        "0xb4" : null,
+        "0xb5" : null,
+        "0xb6" : null,
+        "0xb7" : null,
+        "0xb8" : null,
+        "0xb9" : null,
+        "0xba" : null,
+        "0xbb" : null,
+        "0xbc" : null,
+        "0xbd" : null,
+        "0xbe" : null,
+        "0xbf" : null,
+
+        "0xc0" : "START_ARC",
+        "0xc1" : "REPORT_ARC_STARTED",
+        "0xc2" : "REPORT_ARC_ENDED",
+        "0xc3" : "REQUEST_ARC_START",
+        "0xc4" : "REQUEST_ARC_END",
+        "0xc5" : "END_ARC",
+        "0xc6" : null,
+        "0xc7" : null,
+        "0xc8" : null,
+        "0xc9" : null,
+        "0xca" : null,
+        "0xcb" : null,
+        "0xcc" : null,
+        "0xcd" : null,
+        "0xce" : null,
+        "0xcf" : null,
+
+        "0xd0" : null,
+        "0xd1" : null,
+        "0xd2" : null,
+        "0xd3" : null,
+        "0xd4" : null,
+        "0xd5" : null,
+        "0xd6" : null,
+        "0xd7" : null,
+        "0xd8" : null,
+        "0xd9" : null,
+        "0xda" : null,
+        "0xdb" : null,
+        "0xdc" : null,
+        "0xdd" : null,
+        "0xde" : null,
+        "0xdf" : null,
+
+        "0xe0" : null,
+        "0xe1" : null,
+        "0xe2" : null,
+        "0xe3" : null,
+        "0xe4" : null,
+        "0xe5" : null,
+        "0xe6" : null,
+        "0xe7" : null,
+        "0xe8" : null,
+        "0xe9" : null,
+        "0xea" : null,
+        "0xeb" : null,
+        "0xec" : null,
+        "0xed" : null,
+        "0xee" : null,
+        "0xef" : null,
+
+        "0xf0" : null,
+        "0xf1" : null,
+        "0xf2" : null,
+        "0xf3" : null,
+        "0xf4" : null,
+        "0xf5" : null,
+        "0xf6" : null,
+        "0xf7" : null,
+        "0xf8" : "CDC",
+        "0xf9" : null,
+        "0xfa" : null,
+        "0xfb" : null,
+        "0xfc" : null,
+        "0xfd" : "NONE",
+        "0xfe" : null,
+        "0xff" : "ABORT"
+    }
+}

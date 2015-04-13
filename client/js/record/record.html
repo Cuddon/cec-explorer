@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="page-header">
+      <h2>Record CEC Messages<br><small>Record CEC messages for review and analysis</small></h2>
+    </div>
+    
+    <!-- Display Alert messages here -->
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+
+    <form role="form">
+        <div class="form-group">
+            <label>Name for your recorded messages:</label>
+            <input type="text" class="form-control" data-ng-model="recordfileName" placeholder="Enter name here" data-ng-disabled="isRecording()">
+        </div>
+        
+        <div class="form-group">
+            <label>Maximum number of recorded messages:</label>
+            <input type="text" class="form-control" data-ng-model="maxmessages">
+        </div>
+    </form>
+    
+    <form class="form-inline" role="form">
+        <div class="form-group">
+            <button class="btn btn-default" data-ng-click="startNow()" data-ng-disabled="isRecording()">Start Now</button>
+            <button class="btn btn-default" data-ng-click="startIn()" data-ng-disabled="isRecording()">Start in</button>
+            <input type="text" class="form-control" data-ng-model="startDelay" placeholder="0" data-ng-disabled="isRecording()">Mins
+    </form>
+    <form class="form-inline" role="form">
+            <button class="btn btn-default" data-ng-click="stopNow()" data-ng-disabled="!isRecording()">Stop Now</button>
+            <button class="btn btn-default" data-ng-click="stopIn()" data-ng-disabled="!isRecording()">Stop in</button>
+            <input type="text" class="form-control" data-ng-model="stopDelay" placeholder="0" data-ng-disabled="!isRecording()">Mins
+        </div>
+    </form>
+    
+    <div class="page-header">
+        <h2>Manage Recordings<br><small>A tag line goes here</small></h2>
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <select ng-model="selectedrecording" ng-options="rec for rec in recordings" class="form-control">
+                  <option value="">-- choose a recording --</option>
+            </select>
+            <p></p>Selected Recording: {{selectedrecording}}</p>
+            <div class="btn-group">
+                <button class="btn btn-default" data-ng-click="EditRecordingName()" data-ng-disabled="true">Rename</button>
+                <button class="btn btn-default" data-ng-click="deleteRecording()">Delete</button>
+                <button class="btn btn-default" data-ng-click="exportRecording()" data-ng-disabled="true">Export</button>
+            </div>
+        </div>    
+</div>

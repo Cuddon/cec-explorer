@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="page-header">
+      <h2>Display Recorded Messages <br><small>A tag line goes here</small></h2>
+    </div>
+    
+    <form role="form">
+        <div class="form-group">
+            <select ng-model="selectedrecording" ng-options="rec for rec in recordings" class="form-control">
+                <option value="">-- choose a recording --</option>
+            </select>
+            <p>Selected Recording: {{selectedrecording}}</p>
+    
+            <button class="btn btn-primary" data-ng-click="viewRecording()">View</button>
+        </div>
+    
+        <div class="form-group">
+            <label>Filter messages:</label>
+            <input type="text" class="form-control" data-ng-model="searchtext" placeholder="Enter filter text here">
+        </div>
+    </form>
+    
+    <!-- Display messages here -->
+    <cec-messages data-messages="messages" data-searchtext="searchtext"></cec-messages>
+    
+    <br>
+    
+    
+    <br>Angular Version {{version}}
+</div>

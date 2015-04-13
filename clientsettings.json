@@ -1,0 +1,18 @@
+{
+    "cecdevicelist": [
+        "Recording 1",
+        "Player 1",
+        "Blah",
+        "Fred",
+        "Recording 54"
+    ],
+    "thisdevice": "Recording 54",
+    "aliases": {
+        "Recording 1": "PS33/13",
+        "Player 1": "",
+        "Blah": "Not blah really",
+        "Fred": "Nerk",
+        "Recording 54": "Dummy device fuck"
+    },
+    "event": "settings-retrieved"
+}
